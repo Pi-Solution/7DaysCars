@@ -10,4 +10,8 @@ class Profile extends Model
     protected $fillable = [
         'user_id', 'title', 'description',
     ];
+    public function User()
+    {
+        return $this->hasOne('App\User');
+    }
 }

@@ -20,3 +20,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/profile/{id}', 'UserProfileController@show');
+
+//Vehicles routes
+Route::get('/vehicle/create', 'VehicleController@create');
+
+Route::post('/vehicle', 'VehicleController@store');
+
+

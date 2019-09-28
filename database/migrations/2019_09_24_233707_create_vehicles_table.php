@@ -15,12 +15,14 @@ class CreateVehiclesTable extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('category_id');
-            $table->bigInteger('profile_id');
+            $table->string('category');
+            //$table->bigInteger('category_id');
+            $table->bigInteger('user_id');
             $table->string('name');
             $table->double('price', 8 , 2);
             $table->year('manufacture_year');
             $table->bigInteger('mileage');
+            $table->string('vehicle_image');
             $table->timestamps();
         });
     }

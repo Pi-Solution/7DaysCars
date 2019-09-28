@@ -25,10 +25,14 @@ class VehicleController extends Controller
             'mileage' => 'required',
             'price' => 'required',
             'vehicle_image' => ['required', 'image']
-        ]);
+            ]);
+
+        //$image = request('vehicle_image')->store('vehicle_imgs', 'public');
+
+        //$data['vehicle_image'] = $image;
 
         auth()->user()->vehicles()->create($data);
 
-        dd(request()->all());
+        return redirect('/home');
     }
 }

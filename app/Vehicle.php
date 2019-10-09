@@ -9,16 +9,21 @@ class Vehicle extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'category',
+        'vehicle_maker_id',
         'manufacture_year',
-        'mileage', 'price',
-        'vehicle_image'
+        'mileage',
+        'price',
+        'vehicle_image',
+        'category_id'
     ];
     //
     public function user(){
         return $this->belongsTo('App\User');
     }
-    public function category(){
+    public function VehicleCategory(){
         return $this->belongsTo('App\VahicleCategory');
+    }
+    public function VehicleMaker(){
+        return $this->belongsTo('App\VehicleMaker');
     }
 }

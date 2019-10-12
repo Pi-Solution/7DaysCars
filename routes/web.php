@@ -11,16 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PublicVehicleController@show');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/profile/{id}', 'UserProfileController@show');
 
+Route::get('/home', 'VehicleController@show');
 //Vehicles routes
 Route::get('/vehicle/create', 'VehicleController@create');
 

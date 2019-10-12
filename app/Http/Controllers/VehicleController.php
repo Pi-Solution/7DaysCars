@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Vehicle;
 
 use App\VehicleMaker;
 
+use Illuminate\Http\Request;
+
+
+use Intervention\Image\Facades\Image;
 
 class VehicleController extends Controller
 {
@@ -23,6 +27,44 @@ class VehicleController extends Controller
         return view('/home', [
            'vehicles' => $vehicles
         ]);
+    }
+    //
+    public function edit(){
+        if(auth()->user()->hasPermissionTo('Verify Posts')){
+
+            $vehicles = Vehicle::where('admin_verification', '=', 'waiting')->orderBy('id', 'desc')->get();
+
+            return view('vehicle.vehicles_edit', [
+                'vehicles' => $vehicles
+            ]);
+
+        }else{
+            return redirect('/welcome');
+        }
+    }
+    //
+    public function update(){
+        //Check if user is verified to update
+        if(auth()->user()->hasPermissionTo('Verify Posts')){
+           // dd(request()->all());
+            $data = request()->validate([
+                'admin_verification' => ['required','string'],
+                'id' => 'required',
+            ]);
+            if(Vehicle::find($data['id'])){
+                $vehicle = Vehicle::find($data['id']);
+
+                $vehicle->admin_verification = $data['admin_verification'];
+
+                $vehicle->save();
+
+                return redirect('vehicles/edit')->with(['response' => true]);
+            }else{
+                redirect('/welcome');
+            }
+        }else{
+            return redirect('/welcome');
+        }
     }
     //
     public function create(){
@@ -45,14 +87,14 @@ class VehicleController extends Controller
             'price' => ['required', 'numeric', 'Between: 0, 900000'],
             'vehicle_image' => ['required', 'image']
         ]);
-        $image = request('vehicle_image')->store('vehicle_imgs', 'public');
+        $imagePath = request('vehicle_image')->store('vehicle_imgs', 'public');
 
-        $data['vehicle_image'] = $image;
+        $data['vehicle_image'] = $imagePath;
 
         $data['category_id'] = 1;
 
         auth()->user()->vehicles()->create($data);
 
-        return redirect('/home')->with(['response' => true]);;
+        return redirect('/home')->with(['response' => true]);
     }
 }

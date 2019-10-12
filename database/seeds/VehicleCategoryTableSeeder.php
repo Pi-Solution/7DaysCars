@@ -11,7 +11,7 @@ class VehicleCategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        $data = ['MICRO', 'SEDAN', 'CUV', 'SUV', 'MINIVAN', 'HATCHBACK', 'ROADSTER', 'PICKUP', 'VAN', 'COUP', 'TRUCK', 'BIG TRUCK'];
+        $data = ['underfined','MICRO', 'SEDAN', 'CUV', 'SUV', 'MINIVAN', 'HATCHBACK', 'ROADSTER', 'PICKUP', 'VAN', 'COUP', 'TRUCK', 'BIG TRUCK'];
         //
         foreach ($data as $name) {
             factory(App\VehicleCategory::class, 1)->create([

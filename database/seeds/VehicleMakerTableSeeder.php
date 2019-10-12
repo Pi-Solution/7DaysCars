@@ -16,7 +16,7 @@ class VehicleMakerTableSeeder extends Seeder
             'Alfa Romeo',
             'AMC',
             'Aston Martin',
-            'Aud',
+            'Audi',
             'Avant',
             'Bentley',
             'BMW',

@@ -1,0 +1,68 @@
+body{
+
+}
+.img_div{
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: gray;
+    overflow: hidden;
+}
+.card_img{
+    width: 100%;
+}
+
+/*
+    Colors for admin aproval post
+*/
+.denied{
+    background: #e3342f;
+}
+.denied_border{
+    border-color: #e3342f;
+}
+.waiting{
+    background: #ffc700;
+    color: black !important;
+}
+.waiting_border{
+    border: 2px solid #ffc700 !important;
+}
+.waiting_border_left{
+    border-left: 5px solid #ffc700 !important;
+}
+.aproved{
+    background: #38c173;
+}
+.aproved_border{
+    border-color: #38c173;
+}
+/*------------------------------*/
+.create_vehicle{
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    transition:all 0.5s ease;
+}
+.create_vehicle_link{
+    text-decoration: none !important;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 80%;
+    margin: auto;
+    text-align: center;
+    font-size: 30px;
+}
+.create_vehicle:hover{
+
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+}

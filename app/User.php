@@ -41,6 +41,6 @@ class User extends Authenticatable
         return $this->hasOne('App\Profile');
     }
     public function vehicles(){
-        return $this->hasMany('App\Vehicle');
+        return $this->hasMany('App\Vehicle')->orderBy('created_at', 'DESC');
     }
 }

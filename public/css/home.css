@@ -40,7 +40,7 @@ body{
 }
 /*------------------------------*/
 .create_vehicle{
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     right: 30px;
     width: 60px;
@@ -61,8 +61,7 @@ body{
     font-size: 30px;
 }
 .create_vehicle:hover{
-
-    -webkit-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    transform: scale(1.2);
+    -webkit-transform: scale(1.2) rotate(180deg);
+    -ms-transform: scale(1.2) rotate(180deg);
+    transform: scale(1.2) rotate(180deg);
 }

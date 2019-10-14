@@ -10,6 +10,11 @@
 
 @section('container')
     <div class="container-fluid p-0 m-0">
+        @if (session()->get('Admin'))
+            <div class="alert alert-info" role="alert">
+                {{session()->get('Admin')}}
+            </div>
+        @endif
         <div class="row mt-4">
             <div class="col-md-2 offset-md-2 pl-0 pr-0">
                 <button type="button" class="btn btn-secondary w-100 h-75 rounded-0">Category</button>

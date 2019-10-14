@@ -6,6 +6,8 @@ use App\Vehicle;
 
 use App\VehicleMaker;
 
+use App\VehicleCategory;
+
 use Illuminate\Http\Request;
 
 
@@ -16,7 +18,10 @@ class VehicleController extends Controller
     function __construct(){
         $this->middleware('auth');
     }
-
+    /**
+     * Show all user vehicle
+     *
+     */
     public function show(){
 
         $vehicles = auth()->user()->vehicles;
@@ -28,45 +33,67 @@ class VehicleController extends Controller
            'vehicles' => $vehicles
         ]);
     }
-    //
+    /**
+     * Admin Update for Vehicle Adding category and aproves Post
+     *
+     */
     public function edit(){
         if(auth()->user()->hasPermissionTo('Verify Posts')){
 
             $vehicles = Vehicle::where('admin_verification', '=', 'waiting')->orderBy('id', 'desc')->get();
 
+            $vehicleCategories = VehicleCategory::all();
+
             return view('vehicle.vehicles_edit', [
-                'vehicles' => $vehicles
+                'vehicles' => $vehicles,
+                'vehicleCategories' => $vehicleCategories
             ]);
 
         }else{
             return redirect('/welcome');
         }
     }
-    //
+    /**
+     * Save update to db
+     *
+     */
     public function update(){
         //Check if user is verified to update
         if(auth()->user()->hasPermissionTo('Verify Posts')){
-           // dd(request()->all());
+           //   dd(request()->all());
             $data = request()->validate([
                 'admin_verification' => ['required','string'],
                 'id' => 'required',
+                'category_id' => 'required|exists:vehicle_categories,id'
             ]);
-            if(Vehicle::find($data['id'])){
-                $vehicle = Vehicle::find($data['id']);
+            if ($data['category_id'] == 1) {
 
-                $vehicle->admin_verification = $data['admin_verification'];
-
-                $vehicle->save();
-
-                return redirect('vehicles/edit')->with(['response' => true]);
+                return redirect('/vehicles/edit')->with([
+                    'category_error' => 'Please choose Vehicle Category'
+                ]);
             }else{
-                redirect('/welcome');
+                if(Vehicle::find($data['id'])){
+                    $vehicle = Vehicle::find($data['id']);
+
+                    $vehicle->admin_verification = $data['admin_verification'];
+
+                    $vehicle->category_id = $data['category_id'];
+
+                    $vehicle->save();
+
+                    return redirect('vehicles/edit')->with(['update' => true]);
+                }else{
+                    redirect('/welcome');
+                }
             }
         }else{
             return redirect('/welcome');
         }
     }
-    //
+    /**
+     * Form for Vehicle Posts Creation
+     *
+     */
     public function create(){
         //get all Vehicle makers
         $maker = VehicleMaker::all('id','name');
@@ -76,7 +103,10 @@ class VehicleController extends Controller
         ]);
     }
 
-    //
+    /**
+     * Save Vehicle to db
+     *
+     */
     public function store(){
         //dd(request()->all());
         $data = request()->validate([
@@ -96,5 +126,24 @@ class VehicleController extends Controller
         auth()->user()->vehicles()->create($data);
 
         return redirect('/home')->with(['response' => true]);
+    }
+    /**
+     * Remove Vehicle from db
+     *
+     */
+    public function destroy(){
+        $data = request()->validate([
+            'vehicle' => ['required', 'integer']
+        ]);
+
+        $vehicle = auth()->user()->vehicles()->find($data['vehicle']);
+
+        if (isset($vehicle)) {
+            $vehicle->delete(1);
+
+            return redirect('/home')->with(['delete' => true]);
+        }else {
+            dd('wtf');
+        }
     }
 }

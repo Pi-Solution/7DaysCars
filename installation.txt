@@ -1,0 +1,28 @@
+1. Run composer and install dependences
+
+2. Run npm and install dependences
+
+3. Setup .env file -add your database info 
+
+3. Run migration database
+
+4. Run php artisan db:seed --class=VehicleMakerTableSeeder
+
+5. Run php artisan db:seed --class=VehicleCategoryTableSeeder
+
+6. Run  php artisan db:seed --class=UserTableSeeder
+
+7. Login in
+	# Admin:
+		| email: admin@admin.com | pass: adminadmin123
+	# User: 
+		| email: user@user.com	 | pass: useruser123
+
+8. As loged in user go to public/admin/add (inside project) to give Admin Role to admin@admin.com
+
+9. ???
+
+10. Enjoy :)
+
+Thank for your Time.
+

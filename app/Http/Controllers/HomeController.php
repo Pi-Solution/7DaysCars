@@ -22,20 +22,28 @@ class HomeController extends Controller
     }
     /**
      *
-     * Assign Amin role to first user in db
+     * Assign Admin role to first user in db
      *
     */
     public function assingAdminRole(){
-        Role::create(['name' => 'Admin']);
-        Permission::create(['name' => 'Verify Posts']);
 
-        $role = Role::findById(1);
-        $permission = Permission::findById(1);
-        $role->givePermissionTo($permission);
+        $user_role = User::find(1)->hasRole('Admin');
 
-        User::find(0)->assignRole('Admin');
+        if ($user_role) {
+            return redirect('/')->with(['Admin' => 'User admin@admin.com already has Admin role']);
+        }else{
+            Role::create(['name' => 'Admin']);
+            Permission::create(['name' => 'Verify Posts']);
 
-        redirect('/');
+            $role = Role::findById(1);
+            $permission = Permission::findById(1);
+            $role->givePermissionTo($permission);
+
+            User::find(1)->assignRole('Admin');
+
+            return redirect('/')->with(['Admin' => 'You successfully Added Admin role to "admin@admin.com" user!!!']);
+        }
+
     }
     /**
      * Show the application dashboard.

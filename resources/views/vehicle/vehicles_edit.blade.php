@@ -12,9 +12,14 @@ https://3.bp.blogspot.com/-Hnot9oTMHZs/XDLDK4WyUXI/AAAAAAAADYY/vMw9MXdQjsQb1-w1W
 @section('container')
     <div class="container-fluid p-0 m-0">
         <!--Alert for saved Vehicles-->
-        @if (session()->get('response'))
+        @if (session()->get('update'))
             <div class="alert alert-info" role="alert">
-                Your Vehicle is successfully added. Please wait for admin to approve your post!!!
+                Your Vehicle is successfully updated!!!
+            </div>
+        @endif
+        @if (session()->get("category_error"))
+            <div class="alert alert-danger" role="alert">
+                {{session()->get("category_error")}}
             </div>
         @endif
         <!-- Vehicle Cards  -->
@@ -48,6 +53,11 @@ https://3.bp.blogspot.com/-Hnot9oTMHZs/XDLDK4WyUXI/AAAAAAAADYY/vMw9MXdQjsQb1-w1W
                                         <li class="list-group-item">Manufacture Year :</li>
                                         <li class="list-group-item">Mileage :</li>
                                         <li class="list-group-item pl-0">
+                                            <select id="category{{$vehicle->id}}">
+                                                @foreach ($vehicleCategories as $category)
+                                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                                @endforeach
+                                            </select>
                                         </li>
                                     </ul>
                                 </div>
@@ -56,7 +66,7 @@ https://3.bp.blogspot.com/-Hnot9oTMHZs/XDLDK4WyUXI/AAAAAAAADYY/vMw9MXdQjsQb1-w1W
                                         <li class="list-group-item">{{$vehicle->manufacture_year}}</li>
                                         <li class="list-group-item">{{$vehicle->mileage}}</li>
                                         <li class="list-group-item pl-0 pr-0">
-                                            <button type="button" class="pl-5 pr-5 btn btn-success" onclick="submit_form({{$vehicle->id}}, 'aprove')">Aprove</button>
+                                            <button type="button" class="pl-5 pr-5 btn btn-success" onclick="submit_form({{$vehicle->id}}, 'aproved')">Aprove</button>
                                             <button type="button" class="pl-4 pr-4 btn btn-danger" onclick="submit_form({{$vehicle->id}}, 'denied')">Disapprove</button>
                                         </li>
                                     </ul>
@@ -72,6 +82,7 @@ https://3.bp.blogspot.com/-Hnot9oTMHZs/XDLDK4WyUXI/AAAAAAAADYY/vMw9MXdQjsQb1-w1W
             @method('PATCH')
             <input type="hidden" id="admin_verification" name="admin_verification" value="aprove">
             <input type="hidden" id="vehicle_id" name="id" value="">
+            <input type="hidden" name="category_id" value="" id="category_input">
         </form>
     </div>
 @endsection

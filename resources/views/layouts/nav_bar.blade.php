@@ -8,8 +8,13 @@
         <ul class="navbar-nav mr-auto">
             @auth
                 <div class="nav-item">
-                    <a class="nav-link" href="{{ url('/home') }}">My Vehicles <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ url('/home') }}">My Vehicles</a>
                 </div>
+                @if (session()->has('Admin'))
+                    <div class="nav-item">
+                        <a class="nav-link" href="{{ url('/vehicles/edit') }}">Post Requests</a>
+                    </div>
+                @endif
             @endauth
         </ul>
         <div class="form-inline my-2 my-lg-0">

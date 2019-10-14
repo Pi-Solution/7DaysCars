@@ -17,12 +17,18 @@ https://3.bp.blogspot.com/-Hnot9oTMHZs/XDLDK4WyUXI/AAAAAAAADYY/vMw9MXdQjsQb1-w1W
                 Your Vehicle is successfully added. Please wait for admin to approve your post!!!
             </div>
         @endif
+        <!-- delete alert box -->
+        @if (session()->get('delete'))
+            <div class="alert alert-danger" role="alert">
+                Your Vehicle is successfully deleted.
+            </div>
+        @endif
         <!-- Vehicle Cards  -->
         @foreach ($vehicles as $vehicle)
             <div class="row mt-3">
                 <div class="col-md-8 offset-md-2 rounded p-5 border border-dark {{$vehicle->admin_verification}}_border_left">
                     <div class="row">
-                        <div class="col-md-4 border rounded {{$vehicle->admin_verification}}_border">
+                        <div class="col-md-4 border rounded p-0 {{$vehicle->admin_verification}}_border">
                             <div class="img_div">
                                 <img src="../storage/app/public/{{$vehicle->vehicle_image}}" class="card_img">
                             </div>
@@ -57,7 +63,14 @@ https://3.bp.blogspot.com/-Hnot9oTMHZs/XDLDK4WyUXI/AAAAAAAADYY/vMw9MXdQjsQb1-w1W
                                         <li class="list-group-item">{{$vehicle->manufacture_year}}</li>
                                         <li class="list-group-item">{{$vehicle->mileage}}</li>
                                         <li class="list-group-item pl-0 pr-0">
-                                            <button type="button" class="w-100 btn {{$vehicle->admin_verification}}">{{$vehicle->admin_verification}}</button>
+                                            <div class="row">
+                                                <div class="col-10 pl-1 pr-1">
+                                                    <button type="button" class="w-100 btn {{$vehicle->admin_verification}}">{{$vehicle->admin_verification}}</button>
+                                                </div>
+                                                <div class="col pl-1 pr-1">
+                                                        <button type="button" class="w-100 btn btn-danger" onclick="submit_form({{$vehicle->id}})">X</button>
+                                                </div>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>
@@ -71,4 +84,13 @@ https://3.bp.blogspot.com/-Hnot9oTMHZs/XDLDK4WyUXI/AAAAAAAADYY/vMw9MXdQjsQb1-w1W
             <a href="vehicle/create" class="create_vehicle_link text-white">+</a>
         </div>
     </div>
+    <form action="home" method="POST" id="form">
+        @csrf
+        @method('delete')
+        <input type="hidden" name="vehicle" value="" id="form_input">
+    </form>
+@endsection
+
+@section('javascript')
+    <script src="{{ URL::asset('js/vehicles/vehicles.js') }}"></script>
 @endsection

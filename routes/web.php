@@ -11,9 +11,7 @@
 |
 */
 
-use App\Http\Controllers\VehicleController;
-
-Route::get('/', 'PublicVehicleController@show');
+Route::get('/', 'PublicVehicleController@index');
 
 Auth::routes();
 
@@ -24,9 +22,11 @@ Route::get('/home', 'VehicleController@show');
 Route::get('/vehicles/edit', 'VehicleController@edit');
 Route::patch('/vehicles/edit', 'VehicleController@update');
 
+Route::delete('/home', 'VehicleController@destroy');
+
 Route::get('/vehicle/create', 'VehicleController@create');
 Route::post('/vehicle', 'VehicleController@store');
 
-Route::get('/test', 'HomeController@index');
+Route::get('/home/login', 'HomeController@index');
 
 

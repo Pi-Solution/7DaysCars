@@ -28,5 +28,6 @@ Route::get('/vehicle/create', 'VehicleController@create');
 Route::post('/vehicle', 'VehicleController@store');
 
 Route::get('/home/login', 'HomeController@index');
+Route::get('/admin/add', 'HomeController@assingAdminRole');
 
 

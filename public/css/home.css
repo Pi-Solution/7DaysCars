@@ -10,7 +10,7 @@ body{
     overflow: hidden;
 }
 .card_img{
-    width: 100%;
+    height: 100%;
 }
 
 /*
@@ -20,7 +20,10 @@ body{
     background: #e3342f;
 }
 .denied_border{
-    border-color: #e3342f;
+    border-color: #e3342f !important;
+}
+.denied_border_left{
+    border-left: 5px solid #e3342f !important;
 }
 .waiting{
     background: #ffc700;
@@ -36,7 +39,10 @@ body{
     background: #38c173;
 }
 .aproved_border{
-    border-color: #38c173;
+    border-color: #38c173 !important;
+}
+.aproved_border_left{
+    border-left: 5px solid #38c173 !important;
 }
 /*------------------------------*/
 .create_vehicle{
